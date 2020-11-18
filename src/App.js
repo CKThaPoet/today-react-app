@@ -1,60 +1,36 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React from "react";
+import Weather from "./Weather";
+import "./App.css";
 
+export default function App() {
+  return (
+    <div className="App">
+      <div className="container">
+        <Weather defaultCity="New York" />
 
-export default function App(props) {
-  let [city, setCity] = useState(null);
-  let [tempInfo, setTempInfo] = useState(false);
-  let [weather, setWeather] = useState({});
-
-  function showTemp(response) {
-    setTempInfo(true);
-    setWeather({
-      temperature: response.data.main.temp,
-      wind: response.data.wind.speed,
-      humidity: response.data.main.humidity,
-      icon: `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`,
-      description: response.data.weather[0].description
-    });
-  }
-
-  function updateCity(event) {
-    setCity(event.target.value);
-  }
-
-  function handleChange(event) {
-    event.preventDefault();
-    let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
-    let units = "metric";
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
-    axios.get(apiUrl).then(showTemp);
-  }
-
-  let form = (
-    <div>
-      <form onSubmit={handleChange}>
-        <input type="text" placeholder="Type a City" onChange={updateCity} />
-        <input type="submit" value="Search" />
-      </form>
+        <footer>
+          This project was coded by{" "}
+          <a href="https://chanikinsler.wordpress.com/" rel="noopener noreferrer" target="_blank">
+            Chani Kinsler
+          </a>{" "}
+          and is{" "}
+          <a
+            href="https://github.com/wecodeschool/react-weather-app"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            open-sourced on GitHub
+          </a>{" "}
+          and{" "}
+          <a
+            href="https://suspicious-beaver-111c4d.netlify.com/"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            hosted on Netlify
+          </a>
+        </footer>
+      </div>
     </div>
   );
-
-  if (tempInfo) {
-    return (
-      <div>
-        {form}
-        <ul>
-          <li>Temperature: {Math.round(weather.temperature)}°C</li>
-          <li>Description: {weather.description}</li>
-          <li>Humidity: {weather.humidity}%</li>
-          <li>Wind: {weather.wind}km/h</li>
-          <li>
-            <img src={weather.icon} alt={weather.description} />
-          </li>
-        </ul>
-      </div>
-    );
-  } else {
-    return form;
-  }
 }

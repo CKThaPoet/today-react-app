@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import "bootstrap/dist/css/bootstrap.css";
 import * as serviceWorker from './serviceWorker';
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(
   <React.StrictMode>
-    <h1>Weather App </h1>
+    <h1>Weather App-React </h1>
     <App />
   </React.StrictMode>,
   rootElement
